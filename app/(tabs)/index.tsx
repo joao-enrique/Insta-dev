@@ -1,11 +1,11 @@
 import { Link } from "expo-router";
 import { View } from "react-native";
-import { styles } from "../../styles/auth.styles.js";
+import { styles } from "../../styles/auth.styles";
 
 export default function Index() {
   return (
     <View style={styles.container}>
-      <Link href={"/(tabs)/notifications"}>Visit notification route</Link>
+      <Link href={"/(auth)/login"}>Visit notification route</Link>
     </View>
   );
 }
