@@ -8,6 +8,7 @@ import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import CommentsModal from "./CommentModal";
 
 type PostProps = {
   post: {
@@ -32,6 +33,7 @@ export default function Post( {post}:{post:any} ){
   const [isLiked, setIsLiked] = useState(post.isLiked);
   const [likesCount, setLikesCount] = useState(post.likes);
   const toggleLike = useMutation(api.posts.toggleLike)
+  const [showComments, setShowComments] = useState(false);
 
   const handleLike = async () => {
     try {
@@ -90,7 +92,8 @@ export default function Post( {post}:{post:any} ){
               color={isLiked ? COLORS.primary : COLORS.white}
             />
           </TouchableOpacity>
-          <TouchableOpacity >
+
+          <TouchableOpacity  onPress={() => setShowComments(true)}>
             <Ionicons name="chatbubble-outline" size={22} color={COLORS.white} />
           </TouchableOpacity>
         </View>
@@ -120,7 +123,11 @@ export default function Post( {post}:{post:any} ){
         <Text style={styles.timeAgo}>2 hours ago</Text>
 
       </View>
-
+        <CommentsModal
+          postId={post._id}
+          visible={showComments}
+          onClose={() => setShowComments(false)}
+        />
     </View>
   )
 }

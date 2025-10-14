@@ -59,6 +59,9 @@ export default function Login() {
         <Text style={styles.termsText}>
           By continuing, you agree to our Terms and Privacy Policy
         </Text>
+        <TouchableOpacity onPress={() => router.push("/(tabs)")}>
+          <Text style={{color: "white"}}>home</Text>
+        </TouchableOpacity>
       </View>
       
     </View>
