@@ -8,17 +8,28 @@ import { useAuth } from "@clerk/clerk-expo";
 import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "convex/react";
 import { useRouter } from "expo-router";
-import { FlatList, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { useState } from "react";
+import { FlatList, RefreshControl, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "../../styles/feed.styles";
 
 export default function Index() {
   const { signOut } = useAuth();
+  const [refreshing, setRefresing] = useState(false);
+
   const router = useRouter();
   const posts = useQuery(api.posts.getFeedPosts)
 
   if(posts === undefined) return <Loader />
 
   if(posts.length === 0) return <NoPostsFound />
+
+   // this does nothing
+  const onRefresh = () => {
+    setRefresing(true);
+    setTimeout(() => {
+      setRefresing(false);
+    }, 2000);
+  };
 
   const handleSignOut = async () => {
     try {
@@ -50,6 +61,9 @@ export default function Index() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 60}}
           ListHeaderComponent={<StoriesSection />}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={COLORS.primary}/>
+          }
         />
       </ScrollView>
 

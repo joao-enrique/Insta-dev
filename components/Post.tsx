@@ -5,6 +5,7 @@ import { styles } from "@/styles/feed.styles";
 import { useUser } from "@clerk/clerk-expo";
 import { Ionicons } from "@expo/vector-icons";
 import { useMutation, useQuery } from "convex/react";
+import { formatDistanceToNow } from "date-fns";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { useState } from "react";
@@ -29,46 +30,43 @@ type PostProps = {
   };
 };
 
-
-export default function Post( {post} : PostProps){
+export default function Post({ post }: PostProps) {
   const [isLiked, setIsLiked] = useState(post.isLiked);
   const [isBookmarked, setIsBookmarked] = useState(post.isBookmarked);
-  const [likesCount, setLikesCount] = useState(post.likes);
+
   const [showComments, setShowComments] = useState(false);
 
-  const {user} = useUser();
+  const { user } = useUser();
 
-  const currentUser = useQuery(api.users.getUserByClerkId, user ? {clerkId: user?.id}: "skip")
+  const currentUser = useQuery(api.users.getUserByClerkId, user ? { clerkId: user.id } : "skip");
 
-  const toggleLike = useMutation(api.posts.toggleLike)
-  const toggleBookmark= useMutation(api.bookmarks.toggleBookmark)
-  const deletePost = useMutation(api.posts.deletePost)
-
+  const toggleLike = useMutation(api.posts.toggleLike);
+  const toggleBookmark = useMutation(api.bookmarks.toggleBookmark);
+  const deletePost = useMutation(api.posts.deletePost);
 
   const handleLike = async () => {
     try {
-      const newIsLiked = await toggleLike({postId: post._id})
-      setIsLiked(newIsLiked)
-      setLikesCount((prev) => (newIsLiked ? prev + 1 : prev - 1))
+      const newIsLiked = await toggleLike({ postId: post._id });
+      setIsLiked(newIsLiked);
     } catch (error) {
-      console.log("Error toggling like:", error)
+      console.error("Error toggling like:", error);
     }
-  }
+  };
 
   const handleBookmark = async () => {
-    const newIsBookmarked = await toggleBookmark({ postId: post._id})
+    const newIsBookmarked = await toggleBookmark({ postId: post._id });
     setIsBookmarked(newIsBookmarked);
-  }
+  };
 
   const handleDelete = async () => {
     try {
-      await deletePost({postId: post._id})
+      await deletePost({ postId: post._id });
     } catch (error) {
-      console.error("Error deleteing post:", error)
+      console.error("Error deleting post:", error);
     }
-  }
+  };
 
-  return(
+  return (
     <View style={styles.post}>
       {/* POST HEADER */}
       <View style={styles.postHeader}>
@@ -90,7 +88,7 @@ export default function Post( {post} : PostProps){
           </TouchableOpacity>
         </Link>
 
-        {/* if i'm the owner of the post, show the delete button*/}
+        {/* if i'm the owner of the post, show the delete button  */}
         {post.author._id === currentUser?._id ? (
           <TouchableOpacity onPress={handleDelete}>
             <Ionicons name="trash-outline" size={20} color={COLORS.primary} />
@@ -100,7 +98,6 @@ export default function Post( {post} : PostProps){
             <Ionicons name="ellipsis-horizontal" size={20} color={COLORS.white} />
           </TouchableOpacity>
         )}
-
       </View>
 
       {/* IMAGE */}
@@ -122,8 +119,7 @@ export default function Post( {post} : PostProps){
               color={isLiked ? COLORS.primary : COLORS.white}
             />
           </TouchableOpacity>
-
-          <TouchableOpacity  onPress={() => setShowComments(true)}>
+          <TouchableOpacity onPress={() => setShowComments(true)}>
             <Ionicons name="chatbubble-outline" size={22} color={COLORS.white} />
           </TouchableOpacity>
         </View>
@@ -131,14 +127,16 @@ export default function Post( {post} : PostProps){
           <Ionicons
             name={isBookmarked ? "bookmark" : "bookmark-outline"}
             size={22}
-            color={isBookmarked ? COLORS.primary : COLORS.white}
+            color={COLORS.white}
           />
         </TouchableOpacity>
       </View>
 
-      {/* POST INFOS */}
+      {/* POST INFO */}
       <View style={styles.postInfo}>
-        <Text style={styles.likesText}>{ likesCount > 0 ? `${likesCount.toLocaleString()} likes` : "Be the first to like"}</Text>
+        <Text style={styles.likesText}>
+          {post.likes > 0 ? `${post.likes.toLocaleString()} likes` : "Be the first to like"}
+        </Text>
         {post.caption && (
           <View style={styles.captionContainer}>
             <Text style={styles.captionUsername}>{post.author.username}</Text>
@@ -146,18 +144,22 @@ export default function Post( {post} : PostProps){
           </View>
         )}
 
-        <TouchableOpacity>
-          <Text style={styles.commentText}>View all 2 comments</Text>
-        </TouchableOpacity>
+        {post.comments > 0 && (
+          <TouchableOpacity onPress={() => setShowComments(true)}>
+            <Text style={styles.commentsText}>View all {post.comments} comments</Text>
+          </TouchableOpacity>
+        )}
 
-        <Text style={styles.timeAgo}>2 hours ago</Text>
-
+        <Text style={styles.timeAgo}>
+          {formatDistanceToNow(post._creationTime, { addSuffix: true })}
+        </Text>
       </View>
-        <CommentsModal
-          postId={post._id}
-          visible={showComments}
-          onClose={() => setShowComments(false)}
-        />
+
+      <CommentsModal
+        postId={post._id}
+        visible={showComments}
+        onClose={() => setShowComments(false)}
+      />
     </View>
-  )
+  );
 }

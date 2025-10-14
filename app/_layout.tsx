@@ -1,6 +1,7 @@
 import InitialLayout from '@/components/InitialLayout';
 import ClerkAndConvexProvider from '@/providers/ClerkAndConvexProvider';
 import { Stack } from "expo-router";
+import { StatusBar } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function RootLayout() {
@@ -13,6 +14,7 @@ export default function RootLayout() {
           </Stack>
         </SafeAreaView>
       </SafeAreaProvider>
+      <StatusBar barStyle={"default"}/>
     </ClerkAndConvexProvider>
   )
 }
