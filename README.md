@@ -1,13 +1,7 @@
 <h1 align="center">📸 InstaDev — Clone do Instagram para Devs 💻</h1>
-
 <div align="center">
   <a href="#" target="_blank">
-    <img src="./assets/images/preview-for-project.png" alt="Preview do app" />
-  </a>
-</div>
-<div align="center">
-  <a href="#" target="_blank">
-    <img src="./assets/images/button.png" alt="Botão do app" />
+    <img src="https://i.ibb.co/PvmND5Sk/CONFIRA-O-PROJETO-AQUI-1.png" alt="Botão do app" />
   </a>
 </div>
 
