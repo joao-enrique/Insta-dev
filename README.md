@@ -20,13 +20,13 @@
 - 🧩 **Expo Router** → Navegação moderna e declarativa  
 
 <div align="right">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="40" alt="react logo" />
+  <img src="https://img.shields.io/badge/React_Native-0A84FF?style=for-the-badge&logo=react&logoColor=white" height="40" alt="react logo" />
   <img width="12" />
   <img src="https://img.shields.io/badge/Expo-000000?style=for-the-badge&logo=expo&logoColor=white" height="30" alt="expo logo" />
   <img width="12" />
   <img src="https://img.shields.io/badge/Clerk-6C47FF?style=for-the-badge&logo=clerk&logoColor=white" height="30" alt="clerk logo" />
   <img width="12" />
-  <img src="https://img.shields.io/badge/Convex-0A84FF?style=for-the-badge&logo=database&logoColor=white" height="30" alt="convex logo" />
+  <img src="https://img.shields.io/badge/Convex-0A84FF?style=for-the-badge&logo=surrealdb&logoColor=white" height="30" alt="convex logo" />
 </div>
 
 ---
