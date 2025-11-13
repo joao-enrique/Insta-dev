@@ -1,5 +1,5 @@
-# 💼 Product Store
-> Um CRUD moderno e escalável utilizando a stack PERN, estilizado com TailwindCSS e DaisyUI..
+# 💼 Instadev
+> Um rede social voltado para desenvolvedores, criado com Expo, Clerk e Convex. Compartilhe projetos, inspire outros devs e explore uma rede feita por e para programadores. 🚀
 
 ---
 
@@ -28,7 +28,7 @@
 ---
 
 ## 💡 Sobre o Projeto
-Este aplucativo foi desenvolvido para **aprimorarque devs, possam se conectar e trocar informações entre si** na área de Tecnologia.  
+Este aplicativo foi desenvolvido para **aprimorarque devs, possam se conectar e trocar informações entre si** na área de Tecnologia.  
 O aplicativo foi construído com **React Native, Convex, Clerk e styles nativo**, com foco em **design moderno, responsividade e performance**.
 
 ---
